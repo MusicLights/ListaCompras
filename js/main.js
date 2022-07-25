@@ -1,6 +1,8 @@
 let contador = 0;
 let costoTotal = 0;
 let totalEnProductos = 0;
+// Arreglo global para almacenar la lista de compras
+let datos = [];
 
 let element = document.getElementById("totalPrecio");
 element.innerHTML="Total en precio";
@@ -103,12 +105,22 @@ agregar.addEventListener("click", (event) =>{
     costoTotal += (precio * cantidad);
     total.innerHTML = `$ ${costoTotal.toFixed(2)}`;
     localStorage.setItem("precioTotal", costoTotal.toFixed(2));
+
+
+    //JSON
+    let elemento = `{"id":${contador}, 
+    "nombre":"${txtNombre.value}",
+    "cantidad":${txtNumber.value}, 
+    "precio":${precio}
+    }`;
+    
+    
     let tmp = 
     `<tr>
 <th scope="row">${contador}</th>
 <td>${txtNombre.value}</td>
 <td>${txtNumber.value}</td>
-<td>${precio}</td>
+<td>$${precio}</td>
 </tr>`
     console.log(tmp);
     cuerpoTabla[0].innerHTML += tmp;
@@ -139,7 +151,7 @@ window.addEventListener("load", function(){
         document.getElementById("productosTotal").innerHTML= totalEnProductos;
     }
     if (localStorage.getItem("precioTotal")) {
-        totalEnProductos = parseInt(localStorage.getItem ("precioTotal"));
+        costoTotal = parseFloat(this.localStorage.getItem("precioTotal"));
         total.innerHTML = costoTotal;
     }
         
